@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Data Visualization</title>
+</head>
+<body>
+  <h1>Employee Data Analysis</h1>
+  <p>Email: 23f2005219@ds.study.iitm.ac.in</p>
+  <p>Frequency count for "IT" department: <strong>25</strong></p>
+
+  <h2>Python Code</h2>
+  <pre><code>
+
+    import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Step 1: Generate sample dataset
+np.random.seed(42)
+
+departments = ["Finance", "Operations", "Marketing", "IT", "HR"]
+regions = ["North America", "Europe", "Asia Pacific", "Latin America"]
+
+data = []
+for i in range(1, 101):
+    emp_id = f"EMP{i:03d}"
+    department = np.random.choice(departments)
+    region = np.random.choice(regions)
+    performance_score = round(np.random.uniform(60, 95), 2)
+    years_experience = np.random.randint(1, 20)
+    satisfaction_rating = round(np.random.uniform(3.0, 5.0), 1)
+    data.append([emp_id, department, region, performance_score, years_experience, satisfaction_rating])
+
+df = pd.DataFrame(data, columns=["employee_id", "department", "region", "performance_score", "years_experience", "satisfaction_rating"])
+
+# Step 2: Frequency count of IT department
+it_count = (df["department"] == "IT").sum()
+print(f"Frequency count for IT department: {it_count}")
+
+# Step 3: Histogram of departments
+plt.figure(figsize=(8, 5))
+sns.countplot(x="department", data=df, palette="Set2")
+plt.title("Distribution of Employees Across Departments")
+plt.xlabel("Department")
+plt.ylabel("Count")
+plt.tight_layout()
+
+# Save the histogram as PNG
+plt.savefig("department_histogram.png")
+
+# Step 4: Save visualization and code output into HTML
+html_file = "employee_analysis.html"
+with open(html_file, "w") as f:
+    f.write("<h2>Employee Department Distribution</h2>")
+    f.write(f"<p>Frequency count for IT department: {it_count}</p>")
+    f.write('<img src="department_histogram.png" width="600">')
+    f.write("<br><br>")
+    f.write("<p>Email: 23f2005219@ds.study.iitm.ac.in</p>")  # ✅ Your email added
+
+print(f"Analysis saved to {html_file}")
+ </code></pre>
+
 <h2>Employee Department Distribution</h2><p>Frequency count for IT department: 25</p><img src="department_histogram.png" width="600"><br><br><p>Email: 23f2005219@ds.study.iitm.ac.in</p>
+
+</body>
+</html>
